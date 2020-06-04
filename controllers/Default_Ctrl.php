@@ -4,9 +4,9 @@ namespace controllers;
 
 class Default_Ctrl
 {
-    function __construct()
+    function default_method()
     {
-        echo "Default_Ctrl";
+        echo "Default_Ctrl: default_method()";
     }
 
 }
