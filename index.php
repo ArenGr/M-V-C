@@ -6,6 +6,6 @@ spl_autoload_register(function($class_name){
 
 });
 
-$url_path = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+$url_path = $_SERVER['REQUEST_URI'];
 
 $routes = new Routes($url_path);
