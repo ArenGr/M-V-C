@@ -36,6 +36,7 @@ class Routes {
                     }
                 }else{
                     echo "ERROR: Class dosn't exist";
+                    // throw new Exception("{$class} not found");
                 }
             }else{
                 if(class_exists('controllers\\Default_Ctrl')){
