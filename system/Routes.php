@@ -1,16 +1,11 @@
 <?php
 namespace system;
-use controllers\Default_Ctrl;
 
 class Routes {
 
     function __construct($components){
 
         if (!empty($components[0])) {
-
-            $components = explode('/', $components);
-            array_shift($components);
-
             $file = 'controllers'.DIRECTORY_SEPARATOR.ucfirst($components[0].'.php');
 
             if (file_exists($file)) {
@@ -39,16 +34,11 @@ class Routes {
                     // throw new Exception("{$class} not found");
                 }
             }else{
-                if(class_exists('controllers\\Default_Ctrl')){
-                    $default_ctrl_obj = new Default_Ctrl();
-                    $default_ctrl_obj->default_method();
-                }else{
-                    echo "ERROR: default class dosn't exist";
-                }
+                //page not found
             }
         }else{
-            if(class_exists('controllers\\Default_Ctrl')){
-                $default_ctrl_obj = new Default_Ctrl();
+            if(class_exists('controllers\\DefaultCtrl')){
+                $default_ctrl_obj = new \controllers\DefaultCtrl();
                 $default_ctrl_obj->default_method();
             }else{
                 echo "ERROR: default class dosn't exist";

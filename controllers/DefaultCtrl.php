@@ -2,11 +2,11 @@
 
 namespace controllers;
 
-class Default_Ctrl
+class DefaultCtrl
 {
     function default_method()
     {
-        echo "Default_Ctrl: default_method()";
+        echo "DefaultCtrl: default_method()";
     }
 
 }
