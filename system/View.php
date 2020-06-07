@@ -1,6 +1,8 @@
 <?php
 namespace system;
 
+use Exception;
+
 class View {
 
     public $arg1 = "test1";
@@ -9,14 +11,14 @@ class View {
     public $attr = [];
 
     public function render($view_file, $attr = null){
-        $view_file = "views/".$view_file.".php";
+        $view_file = "views/".ucfirst($view_file).".php";
         if (file_exists($view_file)) {
             include $view_file;
             if (isset ($attr) && is_array($attr)){
                 $this->attr = $attr; 
             }
         }else{
-            echo "ERROR: file not found";
+            throw new Exception("{$view_file} not found");
         }
     }
 }
