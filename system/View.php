@@ -3,20 +3,29 @@ namespace system;
 
 use Exception;
 
-class View 
+class View
 {
 
-    public function render($view_file)
+    public function render($view_file, $access = true)
     {
-        $view_file = "views/".$view_file.".php";
+        if ($access) 
+        {
+            $view_file = "views/auth/".$view_file.".php";
+            if (file_exists($view_file))
+            {
+                include 'views/layouts/main.php';
+            }
+            else
+            {
+                throw new Exception("{$view_file} not found");
+            }
+        }
+        return false;
+        
+    }
 
-        if (file_exists($view_file)) 
-        {
-            include $view_file;
-        }
-        else
-        {
-            throw new Exception("{$view_file} not found");
-        }
+    function __get($name)
+    {
+        $this->name = null;
     }
 }

@@ -1,2 +1,2 @@
 <?php
-echo $this->new_prop;
+var_dump($this->new_prop);

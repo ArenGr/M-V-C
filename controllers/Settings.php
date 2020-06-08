@@ -12,7 +12,8 @@ class Settings extends Controller
 
     public function index()
     {
-        $this->view->new_prop = 'some_text';
+        $this->view->new_prop;
+        $this->view->rop;
         $this->view->render('settings');
     }
 }
