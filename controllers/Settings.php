@@ -13,6 +13,6 @@ class Settings extends Controller
     public function index()
     {
         $this->view->new_prop = 'some_text';
-        $this->view->render('Settings');
+        $this->view->render('settings');
     }
 }
