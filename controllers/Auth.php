@@ -4,7 +4,7 @@ namespace controllers;
 
 use system\Controller;
 
-class Home extends Controller
+class Auth extends Controller
 {
     function index()
     {

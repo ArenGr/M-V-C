@@ -29,7 +29,7 @@
               <div class="form-group">
                 <input type="submit" class="btn btn-success btn-block rounded" value="login" name="login_submit" id="button">
               </div>
-              <p class="text-center"><i>Have an account? </i><a href="/Home/reg" id="sign">sign up</a></p>
+              <p class="text-center"><i>Have an account? </i><a href="/Auth/reg" id="sign">sign up</a></p>
             </form>
         </article>
       </div>

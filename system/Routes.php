@@ -37,8 +37,8 @@ class Routes {
                 //page not found
             }
         }else{
-            if(class_exists('controllers\\Home')){
-                $default_ctrl_obj = new \controllers\Home();
+            if(class_exists('controllers\\Auth')){
+                $default_ctrl_obj = new \controllers\Auth();
                 $default_ctrl_obj->index();
             }else{
                 echo "ERROR: default class dosn't exist";

@@ -8,7 +8,7 @@ class View
 
     public function render($view_file, $access = true)
     {
-        if ($access) 
+        if ($access)
         {
             $view_file = "views/auth/".$view_file.".php";
             if (file_exists($view_file))
@@ -20,8 +20,8 @@ class View
                 throw new Exception("{$view_file} not found");
             }
         }
-        return false;
-        
+        include $view_file;
+
     }
 
     function __get($name)
