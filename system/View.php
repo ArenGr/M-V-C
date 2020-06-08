@@ -3,21 +3,20 @@ namespace system;
 
 use Exception;
 
-class View {
+class View 
+{
 
-    public $arg1 = "test1";
-    public $arg2 = "test2";
-    public $arg3 = "test3";
-    public $attr = [];
-
-    public function render($view_file, $attr = null){
+    public function render($view_file)
+    {
         $view_file = "views/".ucfirst($view_file).".php";
-        if (file_exists($view_file)) {
+
+        if (file_exists($view_file)) 
+        {
             include $view_file;
-            if (isset ($attr) && is_array($attr)){
-                $this->attr = $attr; 
-            }
-        }else{
+            echo $this->new_prop;
+        }
+        else
+        {
             throw new Exception("{$view_file} not found");
         }
     }
