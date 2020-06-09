@@ -6,21 +6,31 @@ use Exception;
 class View
 {
 
-    public function render($view_file, $access = true)
+    public function render($view_file, $switch = true)
     {
-        if ($access)
+        $view_file = "views/auth/".$view_file.".php";
+
+        if ($switch)
         {
-            $view_file = "views/auth/".$view_file.".php";
             if (file_exists($view_file))
             {
                 include 'views/layouts/main.php';
+                return true;
             }
             else
             {
                 throw new Exception("{$view_file} not found");
             }
         }
-        include $view_file;
+            
+        try 
+        {
+            include $view_file;
+        } 
+        catch (Exception $e) 
+        {
+            echo $e->getMessage();
+        }
 
     }
 

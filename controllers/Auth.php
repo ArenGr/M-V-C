@@ -9,7 +9,7 @@ class Auth extends Controller
     function index()
     {
         var_dump($_POST);
-        $this->view->render('login');
+        $this->view->render('login'); //Second param default true
 
     }
 

@@ -38,7 +38,7 @@
           <div class="form-group">
             <input type="submit" class="btn btn-success btn-block rounded" name="submit" value="create account" id="button">
           </div>
-          <p class="text-center"><i>Have an account? </i><a href="/Auth/index">log in</a> </p>
+          <p class="text-center"><i>Have an account? </i><a href="/">log in</a> </p>
         </form>
       </article>
     </div>

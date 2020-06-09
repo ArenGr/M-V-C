@@ -6,7 +6,7 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" type='text/css'>
     <link rel="stylesheet" type="text/css" href="../styles/style.css" />
-    <title>Home</title>
+    <title>Login</title>
   </head>
   <body>
     <div class="container-fluid">
