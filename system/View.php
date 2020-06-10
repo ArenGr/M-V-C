@@ -8,7 +8,7 @@ class View
 
     public function render($view_file, $switch = true)
     {
-        $view_file = "views/auth/".$view_file.".php";
+        $view_file = "views/".$view_file.".php";
 
         if ($switch)
         {
