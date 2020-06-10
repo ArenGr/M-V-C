@@ -37,7 +37,6 @@ class Auth extends Controller
 
     function reg()
     {
-
         $user = new User();
         if (isset($_POST['reg_submit']) && !empty($_POST['reg_submit']))
         {
