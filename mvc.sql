@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 10, 2020 at 05:31 PM
+-- Generation Time: Jun 15, 2020 at 10:41 AM
 -- Server version: 5.7.30-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
@@ -30,20 +30,16 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `user_name` varchar(50) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `password` varchar(40) NOT NULL
+  `password` varchar(40) NOT NULL,
+  `avatar` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_name`, `email`, `password`) VALUES
-(14, 'admin_30', 'aren@mail.ru', '7694f4a66316e53c8cdd9d9954bd611d'),
-(15, 'aren', 'a@mail.ru', '0cc175b9c0f1b6a831c399e269772661'),
-(16, 'admin_30', 'poxos@mail.ru', '7694f4a66316e53c8cdd9d9954bd611d'),
-(17, 'admin_30', 'aaa@mail.ru', '7694f4a66316e53c8cdd9d9954bd611d'),
-(18, 'admin_30', 'aq@mail.ru', '7694f4a66316e53c8cdd9d9954bd611d'),
-(19, 'q', 'q@q.ru', '7694f4a66316e53c8cdd9d9954bd611d');
+INSERT INTO `users` (`id`, `user_name`, `email`, `password`, `avatar`) VALUES
+(98, 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', '1592143802041.jpg');
 
 --
 -- Indexes for dumped tables
@@ -63,7 +59,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
