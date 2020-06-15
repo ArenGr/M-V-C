@@ -20,7 +20,8 @@ class Profile extends Controller
         $user = new User;
         $dir = "../public/images/";
         $avatar = $user->avatar($_SESSION['user_id'])->fetch_assoc()['avatar'];
-        $avatar = $dir.$avatar;
+        if($avatar!=null)
+            $avatar = $dir.$avatar;
 
         $this->view->user_name = $_SESSION['user_name'];
         $this->view->user_email = $_SESSION['user_email'];
