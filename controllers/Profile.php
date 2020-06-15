@@ -23,6 +23,12 @@ class Profile extends Controller
         if($avatar!=null)
             $avatar = $dir.$avatar;
 
+        if (!empty($_SESSION['file_type_err']))
+            $this->view->file_type_err = $_SESSION['file_type_err'];
+
+        if (isset($_SESSION['file_size_err']))
+            $this->view->file_size_err = $_SESSION['file_size_err'];
+
         $this->view->user_name = $_SESSION['user_name'];
         $this->view->user_email = $_SESSION['user_email'];
         $this->view->avatar = $avatar;

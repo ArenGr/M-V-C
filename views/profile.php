@@ -1,3 +1,10 @@
+<style type="text/css" media="screen">
+.help-block{
+    font-size: 12px;
+    color: red;
+    margin-left: 37px;
+}
+</style>
 <?php $avatar = "<img src='$this->avatar' class='img-fluid img-thumbnail' width='200'>";?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -9,8 +16,8 @@
             <?php echo !isset($this->avatar) ? "<img src='../public/images/layout/avatar.png' class='img-fluid img-thumbnail'>" : $avatar?>
         </div>
             <div>
-                <span class="help-block"><?php echo isset($_SESSION['file_type_err']) ?? $_SESSION['file_type_err']; ?></span>
-                <span class="help-block"><?php echo isset($_SESSION['file_size_err']) ?? $_SESSION['file_size_err']; ?></span>
+                <span class="help-block mr-5"><?php echo $this->file_size_err; ?></span>
+                <span class="help-block"><?php echo $this->file_type_err; ?></span>
             </div>
         <div id="message"></div>
         <div class="card-body">

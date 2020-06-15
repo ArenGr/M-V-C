@@ -6,11 +6,11 @@ use system\Controller;
 
 class ProfileImage extends Controller
 {
-    function __construct()
+    public function index()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            if (isset($_POST['change'])) 
+            if (isset($_POST['change']))
             {
                 if(isset($_FILES["image"]) && !empty($_FILES["image"]))
                 {
@@ -24,14 +24,16 @@ class ProfileImage extends Controller
                     {
                         $ext = pathinfo($file_name_local[$key], PATHINFO_EXTENSION);
                         if(!array_key_exists($ext, $allowed_types))
-                            $_SESSION['file_type_err'] = "Error: Please select a valid file format.";
+                            $file_type_err = "Error: Please select a valid file format.";
 
                         $maxsize = 100 * 1024 * 1024;
-                        if($file_size[$key] > $maxsize) 
-                            $_SESSION['file_size_err'] = "Error: File size is larger than the allowed_types limit.";
+                        if($file_size[$key] > $maxsize)
+                            $file_size_err = "Error: File size is larger than the allowed_types limit.";
 
-                        if(in_array($file_type[$key], $allowed_types))
+                        if(empty($file_size_err) && empty($file_type_err))
                         {
+                            $_SESSION['file_type_err'] = "";
+                            $_SESSION['file_size_err'] = "";
                             $new_image_name = round(microtime(true) * 1000).'.'.$ext;
                             $file_path = "./public/images/".$new_image_name;
                             if (move_uploaded_file($file_name_tmp[$key], $file_path))
@@ -43,9 +45,16 @@ class ProfileImage extends Controller
                                 }
                             }
                         }
+                        else
+                        {
+                            $_SESSION['file_type_err'] = $file_type_err;
+                            $_SESSION['file_size_err'] = $file_size_err;
+                            header("Location: /profile");
+                        }
                     }
                 }
             }
         }
     }
+    
 }
