@@ -17,18 +17,14 @@
             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
             <input name="email" class="form-control" placeholder="Enter email" type="text">
           </div>
-          <div>
-            <?php if ($this->log_email_err != null):?><span class="help-block"><?php echo $this->log_email_err ?></span><?php endif;?>
-          </div>
+            <span class="help-block"><?php echo $this->log_email_err ?></span>
         </div>
         <div class="form-group input-group">
           <div class="input-group">
             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             <input name="password" class="form-control" placeholder="Enter password" type="password">
           </div>
-          <div>
-            <?php if (!empty($this->log_pass_err)):?><span class="help-block"><?php echo $this->log_pass_err ?></span><?php endif;?>
-          </div>
+            <span class="help-block"><?php echo $this->log_pass_err ?></span>
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-success btn-block rounded" value="login" name="login_submit" id="button">

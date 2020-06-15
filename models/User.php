@@ -4,41 +4,35 @@ use system\Model;
 
 class User extends Model
 {
-    public function login($email, $password)
+    public function login($password, $email)
     {
-        $email = $this->db->connection->real_escape_string($email);
-        $password = md5($password);
-
-        $query_log = "SELECT * FROM users WHERE password='$password' AND email='$email'";
-
-        $result = $this->db->connection->query($query_log);
-        return $result;
+        $result = $this->db->query_collector('SELECT', '*', 'users', 'WHERE', 'password', md5($password), 'AND', 'email', $email);
+        if ($result)
+            return $result;
+        return false;
     }
 
-    public function registration($name, $email, $password)
+    public function insert_user_data($name, $email, $password)
     {
-        $name = $this->db->connection->real_escape_string($name);
-        $email = $this->db->connection->real_escape_string($email);
-        $password = md5($password);
-
-        $query_reg = "INSERT INTO users (user_name, email, password) VALUES ('$name', '$email', '$password')";
-
-        $result = $this->db->connection->query($query_reg);
-        return $result;
+        $result = $this->db->query_collector('INSERT', ['user_name'=>$name, 'email'=>$email, 'password'=>md5($password)], 'users');
+        if ($result)
+            return $result;
+        return false;
     }
 
     public function email_exists($email)
     {
-        $email = $this->db->connection->real_escape_string($email);
-        $query_email = "SELECT * FROM users WHERE email='$email' LIMIT 1";
+        $result = $this->db->query_collector('SELECT', 'email', 'users', 'WHERE', 'email', $email);
+        if ($result)
+            return $result;
+        return false;
+    }
 
-        if ($this->db->connection->query($query_email)->num_rows == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    public function image_upload($image, $user_id)
+    {
+        $result = $this->db->query_collector('UPDATE', ['avatar'=>$image], 'users', 'WHERE', 'id', $user_id);
+        if ($result)
+            return $result;
+        return false;
     }
 }

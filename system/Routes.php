@@ -1,46 +1,67 @@
 <?php
 namespace system;
 
-class Routes {
-
-    function __construct($components){
-
-        if (!empty($components[0])) {
+class Routes
+{
+    function __construct($components)
+    {
+        if (!empty($components[0]))
+        {
             $file = 'controllers'.DIRECTORY_SEPARATOR.ucfirst($components[0].'.php');
 
-            if (file_exists($file)) {
+            if (file_exists($file))
+            {
                 $ctrl_class = 'controllers\\'.ucfirst($components[0]);
 
-                if (class_exists($ctrl_class)){
+                if (class_exists($ctrl_class))
+                {
                     $ctrl_obj = new $ctrl_class();
 
-                    if (!empty($components[1])){
+                    if (!empty($components[1]))
+                    {
                         $ctrl_method = $components[1];
-                        if (method_exists($ctrl_obj, $ctrl_method)){
+                        if (method_exists($ctrl_obj, $ctrl_method))
+                        {
                             $ctrl_method_args = array_slice($components, 2);
                             call_user_func_array(array($ctrl_obj, $ctrl_method), $ctrl_method_args);
-                        }else{
+                        }
+                        else
+                        {
                             echo "ERROR: method dosn't exist";
                         }
-                    }else{
-                        if (method_exists($ctrl_obj, 'index')) {
+                    }
+                    else
+                    {
+                        if (method_exists($ctrl_obj, 'index'))
+                        {
                             $ctrl_obj->index();
-                        }else{
+                        }
+                        else
+                        {
                             echo "ERROR: method index not found";
                         }
                     }
-                }else{
+                }
+                else
+                {
                     echo "ERROR: Class dosn't exist";
                     // throw new Exception("{$class} not found");
                 }
-            }else{
+            }
+            else
+            {
                 //page not found
             }
-        }else{
-            if(class_exists('controllers\\Auth')){
-                $default_ctrl_obj = new \controllers\Auth();
-                $default_ctrl_obj->index();
-            }else{
+        }
+        else
+        {
+            if(class_exists('controllers\\Auth'))
+            {
+                $auth = new \controllers\Auth();
+                $auth->index();
+            }
+            else
+            {
                 echo "ERROR: default class dosn't exist";
             }
         }

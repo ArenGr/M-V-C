@@ -8,10 +8,10 @@ class Auth extends Controller
     function index()
     {
         $user = new User();
-        if(isset($_POST['login_submit']) && !empty($_POST['login_submit']))
+        if(!empty($_POST['login_submit']))
         {
             $email = $_POST['email'];
-            $pass = $_POST['password'];
+            $password = $_POST['password'];
 
             if (empty($_POST['email']))
                 $this->view->log_email_err = "Sorry, email is required";
@@ -19,15 +19,22 @@ class Auth extends Controller
             if (empty($_POST['password']))
                 $this->view->log_pass_err = "Sorry, password is required";
 
+
             if (empty($this->view->log_email_err) && empty($this->view->log_pass_err))
             {
-                if($user->login($email, $pass)->num_rows == 1)
-                {
-                    echo "You are logined!!!";
-                }
-                else
-                {
-                    $this->view->log_pass_err = "Sorry, the email or password is incorrect";
+                if($result = $user->login($password, $email)){
+                    if($result->num_rows == 1)
+                    {
+                        $user_data = $result->fetch_assoc();
+                        $_SESSION['user_id'] = $user_data['id'];
+                        $_SESSION['user_name'] = $user_data['user_name'];
+                        $_SESSION['user_email'] = $user_data['email'];
+                        header("Location: /profile");
+                    }
+                    else
+                    {
+                        $this->view->log_pass_err = "Sorry, the email or password is incorrect";
+                    }
                 }
             }
         }
@@ -38,7 +45,7 @@ class Auth extends Controller
     function reg()
     {
         $user = new User();
-        if (isset($_POST['reg_submit']) && !empty($_POST['reg_submit']))
+        if (!empty($_POST['reg_submit']))
         {
             $name = $_POST['input_user_name'];
             $email = $_POST['input_email'];
@@ -50,7 +57,6 @@ class Auth extends Controller
             elseif (!preg_match("/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/", $name))
                 $this->view->r_name_err = "Sorry, user name is invalid.";
 
-
             if(empty($email))
                 $this->view->r_email_err = "Sorry, email is required.";
             elseif (!(filter_var($email, FILTER_VALIDATE_EMAIL)))
@@ -59,20 +65,20 @@ class Auth extends Controller
             if (empty($password) || empty($conf_password) || $password != $conf_password)
                 $this->view->r_password_err = "Sorry, your password dosn`t match. Please, try again.";
 
-            if($user->email_exists($email))
-                $this->view->r_email_err = "Email already exists";
+            if ($user->email_exists($email)->num_rows==1)
+                $this->view->r_email_err = "Sorry email already exists";
 
-            if (empty($this->view->r_name_err) && empty($this->view->r_email_err) && empty($this->view->r_password_err))
-            {
-                if($user->registration($name, $email, $password))
+                if (empty($this->view->r_name_err) && empty($this->view->r_email_err) && empty($this->view->r_password_err))
                 {
-                    echo "You are registred!!!";
+                    if($user->insert_user_data($name, $email, $password))
+                    {
+                        header("Location: /");
+                    }
+                    else
+                    {
+                        //error page
+                    }
                 }
-                else
-                {
-                    echo "ERROR: 404 not found"; //redirect error page
-                }
-            }
         }
         $this->view->render('reg');
     }
