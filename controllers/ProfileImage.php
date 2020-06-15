@@ -51,6 +51,13 @@ class ProfileImage extends Controller
                         {
                             $file_type_err = "Error: Please select a valid file format.";
                         }
+                        /*     } */
+                        /* } */
+                        /* } */
+                        /* else */
+                        /* { */
+                        /*     $file_type_err = "Error: Please select a valid file format."; */
+                        /* } */
                     }
                 }
             }

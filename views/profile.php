@@ -5,9 +5,13 @@
     <div class="col-lg-5 col-md-20 mb-lg-1 pl-1 pt-1 mb-4">
       <div class="card testimonial-card" id="avatar">
         <div id="image_preview" class="avatar mx-auto white mt-4" >
-         <?php if (empty($this->avatar)) { echo '<img src="../public/images/layout/avatar.png" id="previewing" class="img-fluid img-thumbnail">'  ; } else { echo "<img src='$this->avatar' id='previewing' class='img-fluid img-thumbnail'>"; }
-?> 
+<?php if (empty($this->avatar)) { echo '<img src="../public/images/layout/avatar.png" id="previewing" class="img-fluid img-thumbnail">'  ; } else { echo "<img src='$this->avatar' id='previewing' class='img-fluid img-thumbnail'>"; }
+?>
         </div>
+            <!-- <div> -->
+            <!--     <span class="help-block"><?php echo isset($_SESSION['file_type_err']) ?? $_SESSION['file_type_err']; ?></span> -->
+            <!--     <span class="help-block"><?php echo isset($_SESSION['file_size_err']) ?? $_SESSION['file_size_err']; ?></span> -->
+            <!-- </div> -->
         <div id="message"></div>
         <div class="card-body">
           <form  id="uploadimage" action="/ProfileImage" method="post" enctype="multipart/form-data">
