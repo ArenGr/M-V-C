@@ -8,10 +8,10 @@
         <div id="image_preview" class="avatar mx-auto white mt-4" >
             <?php echo !isset($this->avatar) ? "<img src='../public/images/layout/avatar.png' class='img-fluid img-thumbnail'>" : $avatar?>
         </div>
-            <!-- <div> -->
-            <!--     <span class="help-block"><?php echo isset($_SESSION['file_type_err']) ?? $_SESSION['file_type_err']; ?></span> -->
-            <!--     <span class="help-block"><?php echo isset($_SESSION['file_size_err']) ?? $_SESSION['file_size_err']; ?></span> -->
-            <!-- </div> -->
+            <div>
+                <span class="help-block"><?php echo isset($_SESSION['file_type_err']) ?? $_SESSION['file_type_err']; ?></span>
+                <span class="help-block"><?php echo isset($_SESSION['file_size_err']) ?? $_SESSION['file_size_err']; ?></span>
+            </div>
         <div id="message"></div>
         <div class="card-body">
           <form  id="uploadimage" action="/ProfileImage" method="post" enctype="multipart/form-data">

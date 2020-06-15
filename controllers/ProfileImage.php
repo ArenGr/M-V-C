@@ -24,13 +24,11 @@ class ProfileImage extends Controller
                     {
                         $ext = pathinfo($file_name_local[$key], PATHINFO_EXTENSION);
                         if(!array_key_exists($ext, $allowed_types))
-                            $file_type_err = "Error: Please select a valid file format.";
+                            $_SESSION['file_type_err'] = "Error: Please select a valid file format.";
 
                         $maxsize = 100 * 1024 * 1024;
                         if($file_size[$key] > $maxsize) 
-                        {
-                            $file_size_err = "Error: File size is larger than the allowed_types limit.";
-                        }
+                            $_SESSION['file_size_err'] = "Error: File size is larger than the allowed_types limit.";
 
                         if(in_array($file_type[$key], $allowed_types))
                         {
@@ -44,10 +42,6 @@ class ProfileImage extends Controller
                                     header("Location: /profile");
                                 }
                             }
-                        }
-                        else 
-                        {
-                            $file_type_err = "Error: Please select a valid file format.";
                         }
                     }
                 }
