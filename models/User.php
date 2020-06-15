@@ -28,6 +28,14 @@ class User extends Model
         return false;
     }
 
+    public function avatar($user_id)
+    {
+        $result = $this->db->query_collector('SELECT', 'avatar', 'users', 'WHERE', 'id', $user_id);
+        if ($result)
+            return $result;
+        return false;
+    }
+
     public function image_upload($image, $user_id)
     {
         $result = $this->db->query_collector('UPDATE', ['avatar'=>$image], 'users', 'WHERE', 'id', $user_id);

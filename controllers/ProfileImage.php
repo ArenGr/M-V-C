@@ -36,13 +36,11 @@ class ProfileImage extends Controller
                         {
                             $new_image_name = round(microtime(true) * 1000).'.'.$ext;
                             $file_path = "./public/images/".$new_image_name;
-                            $_SESSION['filepath'] = $file_path;
                             if (move_uploaded_file($file_name_tmp[$key], $file_path))
                             {
                                 $user = new User;
                                 if($user->image_upload($new_image_name, $user_id))
                                 {
-                                    $_SESSION['avatar'] = $file_path;
                                     header("Location: /profile");
                                 }
                             }
@@ -51,13 +49,6 @@ class ProfileImage extends Controller
                         {
                             $file_type_err = "Error: Please select a valid file format.";
                         }
-                        /*     } */
-                        /* } */
-                        /* } */
-                        /* else */
-                        /* { */
-                        /*     $file_type_err = "Error: Please select a valid file format."; */
-                        /* } */
                     }
                 }
             }
