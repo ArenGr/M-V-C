@@ -7,8 +7,12 @@ class User extends Model
     public function login($password, $email)
     {
         $result = $this->db->query_collector('SELECT', '*', 'users', 'WHERE', 'password', md5($password), 'AND', 'email', $email);
-        if ($result)
-            return $result;
+        if ($result->num_rows == 1)
+        {
+            $user_data = $result->fetch_assoc();
+            $_SESSION['user_id'] = $user_data['id'];
+            return $user_data;
+        }
         return false;
     }
 
@@ -23,16 +27,17 @@ class User extends Model
     public function email_exists($email)
     {
         $result = $this->db->query_collector('SELECT', 'email', 'users', 'WHERE', 'email', $email);
-        if ($result)
-            return $result;
+        if ($result->num_rows == 1)
+            return true;
         return false;
     }
 
     public function avatar($user_id)
     {
+        /* $avatar = $user->avatar($_SESSION['user_id'])->fetch_assoc()['avatar']; */
         $result = $this->db->query_collector('SELECT', 'avatar', 'users', 'WHERE', 'id', $user_id);
         if ($result)
-            return $result;
+            return $result->fetch_assoc()['avatar'];
         return false;
     }
 
@@ -41,6 +46,17 @@ class User extends Model
         $result = $this->db->query_collector('UPDATE', ['avatar'=>$image], 'users', 'WHERE', 'id', $user_id);
         if ($result)
             return $result;
+        return false;
+    }
+
+    public function get_user_data($user_id)
+    {
+        $result = $this->db->query_collector('SELECT', '*', 'users', 'WHERE', 'id', $user_id);
+        if ($result)
+        {
+            $user_data = $result->fetch_assoc();
+            return $user_data;
+        }
         return false;
     }
 }

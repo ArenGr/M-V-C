@@ -3,7 +3,7 @@ namespace system;
 
 use Exception;
 
-class View
+class View 
 {
 
     public function render($view_file, $switch = true)

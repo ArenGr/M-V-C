@@ -1,3 +1,7 @@
+<?php
+use helpers\FlashHelper;
+$avatar = "<img src='$this->avatar' class='img-fluid img-thumbnail' width='200'>";?>
+
 <style type="text/css" media="screen">
 .help-block{
     font-size: 12px;
@@ -5,7 +9,6 @@
     margin-left: 37px;
 }
 </style>
-<?php $avatar = "<img src='$this->avatar' class='img-fluid img-thumbnail' width='200'>";?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <div class="container mb-2 mt-2 ml-10" id="header">
@@ -16,12 +19,12 @@
             <?php echo !isset($this->avatar) ? "<img src='../public/images/layout/avatar.png' class='img-fluid img-thumbnail'>" : $avatar?>
         </div>
             <div>
-                <span class="help-block mr-5"><?php echo $this->file_size_err; ?></span>
-                <span class="help-block"><?php echo $this->file_type_err; ?></span>
+                <span class="help-block mr-5"><?php echo FlashHelper::getFlash('file_type_err')?></span>
+                <span class="help-block mr-5"><?php echo FlashHelper::getFlash('file_size_err')?></span>
             </div>
         <div id="message"></div>
         <div class="card-body">
-          <form  id="uploadimage" action="/ProfileImage" method="post" enctype="multipart/form-data">
+          <form  id="uploadimage" action="profile/profileImage" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <div class="custom-file" id="customFile" lang="es">
                 <input type="file" class="custom-file-input"  name="image[]" id="input-file" multiple>
@@ -43,7 +46,7 @@
     </div>
     <div>
       <div id="logout">
-        <a href="logout" class="btn btn-outline-danger mt-4 ">Logout</a>
+        <a href="auth/logout" class="btn btn-outline-danger mt-4 ">Logout</a>
       </div>
       <div id="data">
         <span class="user_info"> <b>Name:</b> <?=$this->user_name?> </span><br>

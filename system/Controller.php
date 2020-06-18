@@ -1,12 +1,14 @@
 <?php
 namespace system;
 
-class Controller
+class Controller 
 {
 	protected $view;
+	protected $helper;
 	
     function __construct()
     {
 		$this->view = new View();
+		$this->helper = new Helper();
 	}
 }

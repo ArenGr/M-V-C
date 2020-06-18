@@ -22,23 +22,18 @@ class Auth extends Controller
 
             if (empty($this->view->log_email_err) && empty($this->view->log_pass_err))
             {
-                if($result = $user->login($password, $email)){
-                    if($result->num_rows == 1)
-                    {
-                        $user_data = $result->fetch_assoc();
-                        $_SESSION['user_id'] = $user_data['id'];
-                        $_SESSION['user_name'] = $user_data['user_name'];
-                        $_SESSION['user_email'] = $user_data['email'];
-                        header("Location: /profile");
-                    }
-                    else
-                    {
-                        $this->view->log_pass_err = "Sorry, the email or password is incorrect";
-                    }
+                if($user->login($password, $email))
+                {
+                    /* $this->view->user_name = $user_data['user_name']; */
+                    /* $this->view->user_email = $user_data['email']; */
+                    header("Location: /profile");
+                }
+                else
+                {
+                    $this->view->log_pass_err = "Sorry, the email or password is incorrect";
                 }
             }
         }
-
         $this->view->render('login');
     }
 
@@ -65,21 +60,28 @@ class Auth extends Controller
             if (empty($password) || empty($conf_password) || $password != $conf_password)
                 $this->view->r_password_err = "Sorry, your password dosn`t match. Please, try again.";
 
-            if ($user->email_exists($email)->num_rows==1)
+            if ($user->email_exists($email))
                 $this->view->r_email_err = "Sorry email already exists";
 
-                if (empty($this->view->r_name_err) && empty($this->view->r_email_err) && empty($this->view->r_password_err))
+            if (empty($this->view->r_name_err) && empty($this->view->r_email_err) && empty($this->view->r_password_err))
+            {
+                if($user->insert_user_data($name, $email, $password))
                 {
-                    if($user->insert_user_data($name, $email, $password))
-                    {
-                        header("Location: /");
-                    }
-                    else
-                    {
-                        //error page
-                    }
+                    header("Location: /");
                 }
+                else
+                {
+                    //error page
+                }
+            }
         }
         $this->view->render('reg');
     }
+
+    function logout()
+    {
+        unset($_SESSION['user_id']);
+        header('Location: /');
+    }
+
 }
