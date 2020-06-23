@@ -83,5 +83,4 @@ class Auth extends Controller
         unset($_SESSION['user_id']);
         header('Location: /');
     }
-
 }

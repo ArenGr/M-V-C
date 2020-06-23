@@ -1,0 +1,27 @@
+.help-block{
+  font-size: 12px;
+  color: red;
+  margin-left: 37px;
+}
+#logout{
+  margin-left: 550px;
+}
+#user_data{
+  margin-left: 100px;
+  margin-top: 50px;
+}
+#header{
+  display: inline-block;
+}
+#friends{
+  display: inline-block;
+}
+.float-child-1 {
+    width: 20%;
+    float: left;
+    padding: 20px;
+} 
+
+.friends_names{
+  font-size: 20px;
+}

@@ -59,4 +59,31 @@ class User extends Model
         }
         return false;
     }
+
+    public function get_friends_data()
+    {
+        $result = $this->db->query_collector('SELECT', 'id, user_name, email, avatar', 'users');
+        if ($result)
+        {
+            $user_data = $result->fetch_all();
+            return $user_data;
+        }
+        return false;
+    }
+
+    public function insert_message($from_id, $to_id, $body, $date)
+    {
+        $result = $this->db->query_collector('INSERT', ['from_id'=>$from_id, 'to_id'=>$to_id, 'body'=>$body, 'date'=>$date], 'messages');
+        if ($result)
+            return $result;
+        return false;
+    }
+
+    public function get_chat_history($from_id, $to_id)
+    {
+        $result = $this->db->get_chat_data($from_id, $to_id);
+        if ($result)
+            return $result;
+        return false;
+    }
 }

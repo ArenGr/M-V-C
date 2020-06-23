@@ -22,14 +22,15 @@ class Profile extends Controller
         $avatar = $user->avatar($_SESSION['user_id']);
         if($avatar!=null)
             $avatar = $dir.$avatar;
+        $this->view->avatar = $avatar;
 
         $user_data = $user->get_user_data($_SESSION['user_id']);
-
         $this->view->user_name = $user_data['user_name'];
         $this->view->user_email = $user_data['email'];
-        $this->view->avatar = $avatar;
+
         $this->view->render('profile');
     }
+
 
     public function profileImage()
     {
@@ -79,5 +80,19 @@ class Profile extends Controller
                 }
             }
         }
+    }
+
+    public function friends()
+    {
+        $user = new User;
+        $output = '';
+        if($result = $user->get_friends_data())
+        {
+            foreach ($result as $row) {
+               $output .= "<tr><td><img src='../public/images/$row[3]' width='80px'></td><td style='padding-left: 20px; padding-top:30px'><a href='chat/converation/$row[0]' id='friends_list' data-id='$row[0]'>$row[1]</a></td></tr><br>";
+            }
+            echo $output;
+        }
+        /* return "ERRRRRRRRRRRRRRR"; */
     }
 }

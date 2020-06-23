@@ -27,7 +27,7 @@ class Routes
                         }
                         else
                         {
-                            echo "ERROR: method dosn't exist";
+                            echo "ERROR: method dosnt exist";
                         }
                     }
                     else
