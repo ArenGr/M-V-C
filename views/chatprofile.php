@@ -5,7 +5,7 @@
 <div style="margin-top: 20px;">
   <div class="container-fluid" style="width:800px; margin:0 auto; padding: 5px;">
     <article class="card-body">
-      <div style="height:500px; border:1px solid #ccc; overflow-y: scroll; padding:16px;" class="chat_history" id="a">
+      <div style="height:500px; border:1px solid #ccc; overflow-y: scroll; padding:16px; background-color: tan;" class="chat_history" id="a">
         <?php echo $this->message;?>
       </div>
       <div class="form-group">

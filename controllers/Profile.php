@@ -88,8 +88,10 @@ class Profile extends Controller
         $output = '';
         if($result = $user->get_friends_data())
         {
+            
             foreach ($result as $row) {
                $output .= "<tr><td><img src='../public/images/$row[3]' width='80px'></td><td style='padding-left: 20px; padding-top:30px'><a href='chat/converation/$row[0]' id='friends_list' data-id='$row[0]'>$row[1]</a></td></tr><br>";
+               $_SESSION['friend_id'] = $row[0];
             }
             echo $output;
         }

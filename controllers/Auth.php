@@ -24,8 +24,6 @@ class Auth extends Controller
             {
                 if($user->login($password, $email))
                 {
-                    /* $this->view->user_name = $user_data['user_name']; */
-                    /* $this->view->user_email = $user_data['email']; */
                     header("Location: /profile");
                 }
                 else
