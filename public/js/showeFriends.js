@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
        $.ajax({
         url: "profile/friends",
         type: "POST",
-        data: ({ action: "sended" }),
+        data: ({ action: "sended"}),
         dataType: "html",
         success: function(response) {
             $(".friends_names").html(response);

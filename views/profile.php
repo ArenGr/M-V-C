@@ -9,7 +9,7 @@ $avatar = "<img src='$this->avatar' class='img-fluid img-thumbnail' width='200'>
 <div class="float-container">
   <div class="float-child-1">
     <div class="container mb-2" id="friends">
-      <input  type="submit" class="btn btn-outline-success ml-5" name="change" value="Friends" id="showe_friends">
+      <input  type="submit" class="btn btn-outline-success ml-5" name="change" value="Friends" id="showe_friends" data-id="iiii">
       <div class="friends_names ml-5 pt-3"></div>
     </div>
   </div>
