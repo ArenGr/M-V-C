@@ -1,15 +1,15 @@
 <?php
 namespace controllers;
-use models\User;
+use models\Chats;
 use system\Controller;
 
 class Chat extends Controller
 {
   public function converation($to_id)
   {
-    $user = new User;
+    $chat = new Chats;
     $from_id = $_SESSION['user_id'];
-    $chat_history = $user->get_chat_history($from_id, $to_id);
+    $chat_history = $chat->get_chat_history($from_id, $to_id);
     $output = '<ul class="list-unstyled">';
     if ($chat_history->num_rows > 0)
     {
@@ -27,8 +27,10 @@ class Chat extends Controller
   </li>
   ';
         }
-        else
+        elseif ($row['from_id']==$to_id)
         {
+            var_dump($row['user_name']);
+            exit;
           $image = '<tr><td><img src="../public/images/"'.$row['avatar'].'width="80px"></td></tr><br>';
           $output .= '
 <li style="border-bottom:1px dotted #ccc">
@@ -48,7 +50,7 @@ class Chat extends Controller
         $message = $_POST['message'];
 
       $timestamp = date("Y-m-d H:i:s");
-      $result = $user->insert_message($from_id, $to_id, $message, $timestamp);
+      $result = $chat->insert_message($from_id, $to_id, $message, $timestamp);
       if ($result) {
       }
     }
