@@ -70,6 +70,20 @@ class Chat extends Controller
             echo json_encode($new_messages);
     }
 
+    public function get_unreded_messages()
+    {
+        $from_id = $_SESSION['user_id'];
+        $to_id = $_POST['friendId'];
+        $chat = new Messages;
+        $result = $chat->unreaded_messages($from_id, $to_id);
+        if ($result) {
+            echo "true";
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 

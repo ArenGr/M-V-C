@@ -9,9 +9,9 @@ $(document).ready(function() {
             success:function(response)
             {
                 $.each(response, function(item) {
-                $("#user_block").append(`
+                    $("#user_block").append(`
                 <li style="border-bottom:1px dotted #ccci" align="right">
-                  <p style="color:red" >
+                  <p class="new-income-msgs" style="color:red" >
                     <img src='/public/images/${response[item]['avatar']}' width='50px'><br>
                     ${response[item]['body']}
                     <div align="right" id="bl">
@@ -36,7 +36,7 @@ $(document).ready(function() {
             success: function(response) {
                 $("#user_block").append(`
                 <li style="border-bottom:1px dotted #ccci">
-                  <p style="color:green" >
+                  <p  >
                     ${response[0]}
                     <div align="left" id="bl">
                       <small><em>${response[1]}</em></small>
@@ -53,3 +53,19 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $("#chat-board").on("click", function() {
+        var friendId = $('#chat-with').attr('data-id');
+        $.ajax({
+            url: "/chat/get_unreded_messages",
+            type: "POST",
+            data: ({"friendId":friendId}),
+            success: function(response) {
+                console.log(response);
+                if (response) {
+                    $(".new-income-msgs").css("color", "black");
+                }
+            }
+        });
+    });
+});

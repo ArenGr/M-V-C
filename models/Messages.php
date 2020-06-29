@@ -30,13 +30,13 @@ class Messages extends Model
         return false;
     }
 
-    /* public function readed_messages($from_id, $to_id) */
-    /* { */
-    /*     $query = "SELECT * FROM messages WHERE (messages.from_id='$to_id' AND messages.to_id='$from_id') AND messages.seen = 0"; */
-    /*     $result = $this->db->query_collector($query); */
-    /*     if ($result) */
-    /*         return $result; */
-    /*     return false; */
-    /* } */
+    public function unreaded_messages($from_id, $to_id)
+    {
+        $query = "UPDATE messages SET seen=1 WHERE (from_id='$to_id' AND to_id='$from_id') AND messages.seen = 0";
+        $result = $this->db->query_collector($query);
+        if ($result)
+            return $result;
+        return false;
+    }
     
 }
