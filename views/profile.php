@@ -1,16 +1,11 @@
-<?php
-use helpers\FlashHelper;
-$avatar = "<img src='$this->avatar' class='img-fluid img-thumbnail' width='200'>";?>
+<link rel="stylesheet" href="../public/css/profile.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="../public/css/profile.css">
-<script src="../public/js/showeFriends.js"></script>
 <div class="float-container">
   <div class="float-child-1">
     <div class="container mb-2" id="friends">
-      <input  type="submit" class="btn btn-outline-success ml-5" name="change" value="Friends" id="showe_friends" data-id="iiii">
-      <div class="friends_names ml-5 pt-3"></div>
+      <button class="btn btn-outline-success ml-5" id="showe_friends" data-id="<?=$_SESSION['user_id']?>">Friends</button>
+      <div class="friends-list ml-5 pt-3"> </div>
     </div>
   </div>
   <div class="float-child">
@@ -19,11 +14,15 @@ $avatar = "<img src='$this->avatar' class='img-fluid img-thumbnail' width='200'>
         <div class="col-lg-5 col-md-20 mb-lg-1 pl-1 pt-1 mb-4">
           <div class="card testimonial-card" id="avatar">
             <div id="image_preview" class="avatar mx-auto white mt-4" >
-              <?php echo !isset($this->avatar) ? "<img src='../public/images/layout/avatar.png' class='img-fluid img-thumbnail'>" : $avatar?>
+              <?php if(!isset($this->avatar)) : ?>
+              <img src='/images/layout/avatar.png' class='img-fluid img-thumbnail' width='200'>
+              <?php else: ?>
+              <img src="/images/<?=$this->avatar ?>" class='img-fluid img-thumbnail' width='200'>
+              <?php endif;?>
             </div>
             <div>
-              <span class="help-block mr-5"><?php echo FlashHelper::getFlash('file_type_err')?></span>
-              <span class="help-block mr-5"><?php echo FlashHelper::getFlash('file_size_err')?></span>
+              <span class="help-block mr-5"><?php echo helpers\FlashHelper::getFlash('file_type_err')?></span>
+              <span class="help-block mr-5"><?php echo helpers\FlashHelper::getFlash('file_size_err')?></span>
             </div>
             <div id="message"></div>
             <div class="card-body">
@@ -63,3 +62,5 @@ $avatar = "<img src='$this->avatar' class='img-fluid img-thumbnail' width='200'>
     </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/public/js/showeFriends.js"></script>

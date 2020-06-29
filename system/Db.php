@@ -19,22 +19,17 @@ class Db
         }
     }
 
-    public function get_chat_data($from_id, $to_id)
+    public function query_collector($query = null, $action=null, $what=null, $table=null, $cond_1=null, $col_1=null, $val_1=null, $cond_2=null, $col_2=null, $val_2=null, $other=null)
     {
-        /* $query = "SELECT messages.*, users.avatar, users.user_name FROM messages LEFT JOIN users ON ('$from_id'=users.id )OR ('$to_id'=users.id) WHERE (from_id='$from_id' AND to_id='$to_id') OR (from_id='$to_id' AND to_id='$from_id')"; */
-        $query = "SELECT messages.*, users.avatar, users.user_name FROM messages LEFT JOIN users ON ('$to_id'=users.id AND '$from_id'=messages.to_id) OR ('$from_id'=users.id AND '$to_id'=messages.to_id) WHERE (from_id='$from_id' AND to_id='$to_id') OR (from_id='$to_id' AND to_id='$from_id') ORDER BY date ASC";
-        $result = $this->connection->query($query);
-        if ($result)
-            return $result;
+        if ($query==null)
+        {
+            $this->data = "";
+            $result = $this->connection->query($this->query_type($action, $what, $table)->query_condition($cond_1, $col_1, $val_1)->query_condition($cond_2, $col_2, $val_2)->order($other)->get());
+        }
         else
-            echo "Error description: ".$result.' '. $this->connection->error;
-    }
-
-
-    public function query_collector($action, $what, $table, $cond_1=null, $col_1=null, $val_1=null, $cond_2=null, $col_2=null, $val_2=null, $other=null)
-    {
-        $this->data = "";
-        $result = $this->connection->query($this->query_type($action, $what, $table)->query_condition($cond_1, $col_1, $val_1)->query_condition($cond_2, $col_2, $val_2)->order($other)->get());
+        {
+            $result = $this->connection->query($query);
+        }
         if ($result)
             return $result;
         else

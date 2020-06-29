@@ -82,19 +82,33 @@ class Profile extends Controller
         }
     }
 
-    public function friends()
+    public function user($to_id)
     {
         $user = new User;
-        $output = '';
-        if($result = $user->get_friends_data())
+        if($result = $user->get_friends_data($to_id)->fetch_assoc())
         {
-            
-            foreach ($result as $row) {
-               $output .= "<tr><td><img src='../public/images/$row[3]' width='80px'></td><td style='padding-left: 20px; padding-top:30px'><a href='chat/converation/$row[0]' id='friends_list' data-id='$row[0]'>$row[1]</a></td></tr><br>";
-               /* $_SESSION['friend_id'] = $row[0]; */
-            }
-            echo $output;
+            $this->view->id = $result['id'];
+            $this->view->name = $result['user_name'];
+            $this->view->email = $result['email'];
+            $this->view->avatar = $result['avatar'];
         }
-        /* return "ERRRRRRRRRRRRRRR"; */
+        $this->view->render('friend');
+    }
+
+    public function friends()
+    {
+        if (isset($_POST['action'])) {
+        $user = new User;
+        $friends_details = array();
+        $result = $user->get_friends_data();
+        if($result->num_rows > 0)
+        {
+            while($row = $result->fetch_assoc())
+            {
+                array_push($friends_details, $row);
+            }
+        }
+            echo json_encode($friends_details);
+        }
     }
 }

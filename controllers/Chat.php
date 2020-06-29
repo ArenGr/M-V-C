@@ -1,84 +1,76 @@
 <?php
 namespace controllers;
-use models\Chats;
+use models\Messages;
 use system\Controller;
 
 class Chat extends Controller
 {
-    public function converation($to_id)
+    public function conversation($to_id, $name='')
     {
-        $chat = new Chats;
+        $chat = new Messages;
         $from_id = $_SESSION['user_id'];
         $chat_history = $chat->get_chat_history($from_id, $to_id);
-        $output = '<ul class="list-unstyled">';
+        $user_messages = array();
         if ($chat_history->num_rows >= 1)
         {
             while($row = $chat_history->fetch_assoc())
             {
-                if ($row['from_id'] == $from_id) {
-                    $image_name =$row['avatar'];
-                    $image = "<tr><td><img src='/public/images/$image_name' width='50px'></td></tr><br>'";
-                    $output .= '
-  <li style="border-bottom:1px dotted #ccc">
-    <p style="color:green"> '.$image.$row["body"].'
-      <div align="left">
-        - <small><em>'.substr($row['date'], 0, -7).'</em></small>
-      </div>
-    </p>
-  </li>
-  ';
+                if ($row['from_id'] == $from_id)
+                {
+                    array_push($user_messages,['body'=> $row['body'], 'date'=>substr($row['date'],0, -7), 'avatar'=>$row['avatar'], 'from_to_id'=>$from_id]);
                 }
                 else
                 {
-                    $image_name =$row['avatar'];
-                    $image = "<tr><td><img src='/public/images/$image_name' width='50px'></td></tr><br>'";
-                    $output .= '
-<li style="border-bottom:1px dotted #ccc">
-  <p style="color:green" align="right"> '.$image.$row["body"].'
-    <div align="right">
-      - <small><em>'.substr($row['date'], 0, -7).'</em></small>
-    </div>
-  </p>
-</li>
-';
+
+                    array_push($user_messages,['message_id'=>$row['id'], 'body'=> $row['body'], 'date'=>substr($row['date'],0, -7), 'avatar'=>$row['avatar'], 'from_to_id'=>$to_id]);
                 }
             }
-            $output .= '</ul>';
         }
-        /* if (!empty($_POST['send_button'])) */ 
-        /* { */
-        /*     if (!empty($_POST['message'])) */
-        /*         $message = $_POST['message']; */
 
-        /*     $timestamp = date("Y-m-d H:i:s"); */
-        /*     $result = $chat->insert_message($from_id, $to_id, $message, $timestamp); */
-        /*     if ($result) */ 
-        /*     { */
-        /*     } */
-        /* } */
-
+        $this->view->name = $name;
+        $this->view->user_messages = $user_messages;
         $this->view->to_id = $to_id;
-        $this->view->message = $output;
-        $this->view->render('chatprofile');
+        $this->view->render('chatprofile', false);
     }
 
-    public function chatOnline($to_id)
+    public function InsertMessage()
     {
-        $chat = new Chats;
-        $from_id = $_SESSION['user_id'];
-        if (!empty($_POST['send_button'])) 
+        if ($_POST['act'])
         {
-            if (!empty($_POST['message']))
-                $message = $_POST['message'];
-
+            $chat = new Messages;
+            $from_id = $_SESSION['user_id'];
+            $to_id = $_POST['to_id'];
+            $message = $_POST['message'];
             $timestamp = date("Y-m-d H:i:s");
+            $response[0] = $message;
+            $response[1] = $timestamp;
             $result = $chat->insert_message($from_id, $to_id, $message, $timestamp);
-            if ($result) 
+            if ($result)
             {
-                echo $message;
+                echo json_encode($response);
             }
         }
-        $this->view->render('chatprofile');
     }
-    
+
+    public function update_chat()
+    {
+        $from_id = $_SESSION['user_id'];
+        $to_id = $_POST['friendId'];
+        $chat = new Messages;
+        $result = $chat->last_messages($from_id, $to_id);
+        $new_messages = array();
+        if ($result->num_rows >= 1)
+        {
+            while($row = $result->fetch_assoc())
+            {
+                array_push($new_messages, ['body'=> $row['body'], 'date'=>substr($row['date'],0, -7), 'avatar'=>$row['avatar']]);
+            }
+        }
+        if (count($new_messages)>0)
+            echo json_encode($new_messages);
+    }
+
 }
+
+
+
