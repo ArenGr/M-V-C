@@ -44,7 +44,7 @@
             <input id="user-message" class="form-control" name="message" style="width:91%; float:left;"/>
           </span>
           <span>
-            <button id="send_msg" class="btn btn-outline-success" data-image="<?=$this->image?>"  data-id="<?=$this->to_id;?>"/>Send</button>
+          <button id="send_msg" class="btn btn-outline-success" data-image="<?=$this->image?>"  data-id="<?=$this->to_id;?>" />Send</button>
         </div>
       </article>
     </div>

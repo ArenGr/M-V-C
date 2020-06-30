@@ -34,6 +34,7 @@ $(document).ready(function() {
             data: ({ "to_id": to_id, "message": message, "act":"sended"}),
             dataType: "json",
             success: function(response) {
+                $("#user-message").val("");
                 $("#user_block").append(`
                 <li style="border-bottom:1px dotted #ccci">
                   <p  >
