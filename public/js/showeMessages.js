@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#chat-board").stop().animate({ scrollTop: $("#chat-board")[0].scrollHeight}, 1000);
     var friendId = $('#chat-with').attr('data-id');
     setInterval(function(){
         $.ajax({
@@ -34,6 +35,7 @@ $(document).ready(function() {
             data: ({ "to_id": to_id, "message": message, "act":"sended"}),
             dataType: "json",
             success: function(response) {
+                $("#chat-board").stop().animate({ scrollTop: $("#chat-board")[0].scrollHeight}, 1000);
                 $("#user-message").val("");
                 $("#user_block").append(`
                 <li style="border-bottom:1px dotted #ccci">
